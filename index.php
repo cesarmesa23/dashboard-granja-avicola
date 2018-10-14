@@ -390,8 +390,48 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        <!--INICIO DE GRAFICAS-->
+						 <div class="row">
+                            <div class="col-lg-6">
+                                <div class="au-card m-b-30">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2 m-b-40">Temperatura</h3>
+                                        <canvas id="temperatura"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+							 <!--sepracion de graficas-->
+                            <div class="col-lg-6">
+                                <div class="au-card m-b-30">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2 m-b-40">Humedad</h3>
+                                        <canvas id="humedad"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+							 <!--sepracion de graficas-->
+							<div class="col-lg-6">
+                                <div class="au-card m-b-30">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2 m-b-40">Amoníaco</h3>
+                                        <canvas id="amoniaco"></canvas>
+                                    </div>
+                                </div>
+                            </div> 
+							  <!--sepracion de graficas-->
+							  <div class="col-lg-6">
+                                <div class="au-card m-b-30">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2 m-b-40">Consumo de Agua</h3>
+                                        <canvas id="agua"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+							   <!--sepracion de graficas-->
+							
+                        </div>
                        
+					    <!--FIN DE GRAFICAS-->
                         
                         <div class="row">
                             <div class="col-md-12">
@@ -408,7 +448,8 @@
         </div>
 
     </div>
-
+	
+	
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
@@ -431,6 +472,10 @@
     </script>
 
     <!-- Main JS-->
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="temperatura.js"></script>
+	<script type="text/javascript" src="humedad.js"></script>
+	<script type="text/javascript" src="agua.js"></script>
     <script src="js/main.js"></script>
 	
 	    <!-- CONFIGURACION DE BARRAS-->
