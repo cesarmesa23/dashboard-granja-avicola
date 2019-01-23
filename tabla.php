@@ -22,43 +22,12 @@
 	$datosAmoniaco=mysql_fetch_array($resultadoAmoniaco);
 	$valorAmoniaco=$datosAmoniaco['valor'];
 	
-	
-
-	if (isset($_REQUEST['filtro']))
-	{ 
-
-	if ($_REQUEST['inicial']!==""){
-		$fechaInicial=$_REQUEST['inicial'];		
-	}
-	if($_REQUEST['inicial']!==""){
-		
-		$fechaFinal=$_REQUEST['final'];
-	}
-	
-	$consultaRango='select * from informeAmoniaco where fecha between "'.$fechaInicial.'" and "'.$fechaFinal.'" order by fecha desc;';
-	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
-	
-	echo '<script language="JavaScript"> 
-            alert("JavaScript dentro de PHP"); 
-                </script>';
-		
-          
-	}else {
-		echo '<script language="JavaScript"> 
-            alert("JavaScript dentro de PHPsddddd"); 
-                </script>';
-		
-	$consultaRango='select * from informeAmoniaco order by fecha desc;';
-	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
-		
-	}
-
-    
+	/// CONSULTA DE TODOS LOS REGISTRO DE INFORMEAMONIACO
+	$consultaInformeAmoniaco="select * from informeamoniaco";
+	mysql_query("SET NAMES utf8");
+	$resultadoInformeAmoniaco=mysql_query($consultaInformeAmoniaco,$conexion);
 	
 ?>
-
-
-
 
 
 <!DOCTYPE html>
@@ -83,7 +52,14 @@
 
     <!-- Bootstrap CSS-->
     <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-
+	
+	
+	<!-- BOOTSTRAP DATEPIKER-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"/>
+	
+	
+	
     <!-- Vendor CSS-->
     <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
     <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
@@ -95,7 +71,7 @@
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
-
+	
 </head>
 
 <body class="animsition">
@@ -355,109 +331,62 @@
                         </div>
                         
 						<!--INICIO DE TABLA-->
+						  <div class="table-responsive"  style="overflow-x: hidden;">
+						<br />
 						<div class="row">
-		<h2><br /></h2>
-		
-		<div class="col-md-12">
-		    <form class="form-inline form-filtro">
-        <div class="form-group">
-          <label class="sr-only" for="filtro-data-inicial">Data inicial</label>
-          <input type="date" class="form-control" name="inicial" id="inicial">
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="filtro-data-final">Data final</label>
-          <input type="date" class="form-control" name="final" id="final">
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="filtro-tipo">Tipo</label>
-          <select class="form-control" id="filtro-tipo">
-            <option value="">Tipo</option>
-            <option value="">Receita</option>
-            <option value="">Despesa</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="filtro-conta">Conta</label>
-          <select class="form-control" id="filtro-conta">
-            <option value="">Conta</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="filtro-categoria">Categoria</label>
-          <select class="form-control" id="filtro-categoria">
-            <option value="">Categoria</option>
-          </select>
-        </div>
-        <div class="form-group">
-		  <button type="submit" name="filtro" value="filtrar" class="btn btn-primary">Filtrar</button>
-          <button type="reset" class="btn btn-default">Limpar</button>
-		 
-        </div>
-      </form>
-		</div>
-	</div>
+						 <div class="input-daterange">
+						  <div class="col-md-2">
+						   <input type="text" name="From" id="From" class="form-control" />
+						  </div>
+						  <div class="col-md-2">
+						   <input type="text" name="to" id="to" class="form-control" />
+						  </div>      
+						 </div>
+						 <div class="col-md-8">
+						  <input type="button" name="range" id="range" value="Range" class="btn btn-info active" />
+						 </div>
+						
+						</div>
+						<br />
 						
 						
-						
-						
+					   </div>
+							
 						
 						
 						  <div class="row m-t-30">
                             <div class="col-md-12">
                                 <!-- DATA TABLE-->
-                                <div class="table-responsive m-b-40">
-                                    <table class="table table-borderless table-data3">
-                                        <thead>
-											 <tr>
-                                                <th colspan="12"></th>
-                                                <th>HORA</th>
-												<th colspan="12"></th>
-                                            </tr>
-                                            <tr>
-                                                <th>fecha</th>
-                                                <th>00</th>
-                                                <th>01</th>
-                                                <th>02</th>
-                                                <th>03</th>
-												<th>04</th>
-                                                <th>05</th>
-                                                <th>06</th>
-                                                <th>07</th>
-												<th>08</th>
-                                                <th>09</th>
-                                                <th>10</th>
-                                                <th>11</th>
-												<th>12</th>
+                                <div class="purchase_order">
+								  <table id="order_data" class="table table-bordered">
+									 <thead>
+											
+										
+									  <tr>
+												<th>fecha</th>                                                
                                                 <th>13</th>
                                                 <th>14</th>
 												<th>15</th>
                                                 <th>16</th>
-                                                <th>17</th>
-												<th>18</th>
-                                                <th>19</th>
-                                                <th>20</th>
-												<th>21</th>
-                                                <th>22</th>
-                                                <th>23</th>		
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                                
+									  </tr>
+									 </thead>
+									  	<?php
+										while($row= mysqli_fetch_array($resultadoInformeAmoniaco))
+										{
+											?>
+											<tr>
+											<td><?php echo $row["fecha"]; ?></td>
+											<td><?php echo $row["13"]; ?></td>
+											<td><?php echo $row["14"]; ?></td>
+											<td><?php echo $row["15"]; ?></td>
+											<td><?php echo $row["16"]; ?></td>
+											</tr>
 											<?php
-												while ($filas = mysql_fetch_array($resultadoConsultaRango)) {
-													
-													echo "<tr>";  
-													echo "<td>".$filas["fecha"]."</td>";  
-													echo "<td>".$filas["13"]."</td>";      
-													echo "<td>".$filas["14"]."</td>";  
-													echo "<td>".$filas["15"]."</td>";
-													echo "<td>".$filas["16"]."</td>";  
-													echo "</tr>";  
-
-												}
-											?>   				
-																			   
-                                        </tbody>
-                                    </table>
+										}
+										?>
+									</table>
+								
                                 </div>
                                 <!-- END DATA TABLE-->
                             </div>
@@ -483,6 +412,7 @@
 
     </div>
 	
+	    <!-- JS DATEPIKER---->
 	
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
@@ -506,55 +436,158 @@
     </script>
 
     <!-- Main JS-->
+	
+	
+	
 	<script type="text/javascript" src="app.js"></script>
 	<script type="text/javascript" src="temperatura.js"></script>
 	<script type="text/javascript" src="humedad.js"></script>
 	<script type="text/javascript" src="agua.js"></script>
     <script src="js/main.js"></script>
 	
-	    <!-- CONFIGURACION DE BARRAS-->
-		<script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+
+
+<!-- Script -->
+<script>
+$(document).ready(function(){
+	$.datepicker.setDefaults({
+		dateFormat: 'yy-mm-dd'
+	});
+	$(function(){
+		$("#From").datepicker();
+		$("#to").datepicker();
+	});
+	$('#range').click(function(){
+		var From = $('#From').val();
+		var to = $('#to').val();
+		if(From != '' && to != '')
+		{
+			$.ajax({
+				url:"range.php",
+				method:"POST",
+				data:{From:From, to:to},
+				success:function(data)
+				{
+					$('#purchase_order').html(data);
+				}
+			});
+		}
+		else
+		{
+			alert("Please Select the Date");
+		}
+	});
 });
-</script>
-		
+</script>		
+	
 
 </body>
 
 </html>
+
+
+
+<script type="text/javascript" language="javascript" >
+
+
+
+$(document).ready(function(){
+ 
+
+
+
+ $('.input-daterange').datepicker({
+    "locale": {
+                "separator": " - ",
+        "applyLabel": "Aplicar",
+        "cancelLabel": "Cancelar",
+        "fromLabel": "Desde",
+        "toLabel": "Hasta",
+        "customRangeLabel": "Custom",
+        "daysOfWeek": [
+            "Do",
+            "Lu",
+            "Ma",
+            "Mi",
+            "Ju",
+            "Vi",
+            "Sa"
+        ],
+        "monthNames": [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"
+        ],
+        "firstDay": 1
+    },
+  
+  format: "yyyy-mm-dd",
+  autoclose: true
+
+ });
+
+ fetch_data('no');
+
+ function fetch_data(is_date_search, start_date='', end_date='')
+ {
+  var dataTable = $('#order_data').DataTable({
+
+    "language":{
+       "lengthMenu":"Mostrar _MENU_ registros por página.",
+       "zeroRecords": "Lo sentimos. No se encontraron registros.",
+             "info": "Mostrando página _PAGE_ de _PAGES_",
+             "infoEmpty": "No hay registros aún.",
+             "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+             "search" : "Búsqueda",
+             "LoadingRecords": "Cargando ...",
+             "Processing": "Procesando...",
+             "SearchPlaceholder": "Comience a teclear...",
+             "paginate": {
+     "previous": "Anterior",
+     "next": "Siguiente", 
+     }
+      },
+
+   "processing" : true,
+   "serverSide" : true,
+   "sort": false,
+   "order" : [],
+   "ajax" : {
+    url:"ajax.php",
+    type:"POST",
+    data:{
+     is_date_search:is_date_search, start_date:start_date, end_date:end_date
+    }
+   }
+  });
+ }
+
+ $('#search').click(function(){
+  var start_date = $('#start_date').val();
+  var end_date = $('#end_date').val();
+  if(start_date != '' && end_date !='')
+  {
+   $('#order_data').DataTable().destroy();
+   fetch_data('yes', start_date, end_date);
+  }
+  else
+  {
+   alert("Por favor seleccione la fecha");
+  }
+ }); 
+ 
+});
+</script>
+
 <!-- end document-->

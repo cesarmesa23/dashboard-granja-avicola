@@ -1,7 +1,8 @@
 <?php 
 	require('conexion.php');
 	
-	//consulta ultimo regitro de temperatura
+	
+		//consulta ultimo regitro de temperatura
 	$consulta="select * from temperatura order by id desc limit 1";
 	mysql_query("SET NAMES utf8");
 	$resultado=mysql_query($consulta,$conexion);
@@ -22,8 +23,44 @@
 	$datosAmoniaco=mysql_fetch_array($resultadoAmoniaco);
 	$valorAmoniaco=$datosAmoniaco['valor'];
 	
+	//Consulta de amoniaco fuera de parametro (estado=1)
+	$consultaRegistros="select * from amoniaco where estado='1' and fecha=curdate();";
+	mysql_query("SET NAMES utf8");
+	$resultadoRegistro=mysql_query($consultaRegistros,$conexion);
+	$totalFilas=mysql_num_rows($resultadoRegistro);	
 	
-
+	//Consulta de temperatura fuera de parametro (estado=1)
+	$consultaRegistros2="select * from temperatura where estado='1' and fecha=curdate();";
+	mysql_query("SET NAMES utf8");
+	$resultadoRegistro2=mysql_query($consultaRegistros2,$conexion);
+	$totalFilas2=mysql_num_rows($resultadoRegistro2);	
+	
+	//Consulta de humedad fuera de parametro (estado=1)
+	$consultaRegistros3="select * from humedad where estado='1' and fecha=curdate();";
+	mysql_query("SET NAMES utf8");
+	$resultadoRegistro3=mysql_query($consultaRegistros3,$conexion);
+	$totalFilas3=mysql_num_rows($resultadoRegistro3);	
+	
+	//Consulta de agua fuera de parametro (estado=1)
+	$consultaRegistros4="select * from agua where estado='1' and fecha=curdate();";
+	mysql_query("SET NAMES utf8");
+	$resultadoRegistro4=mysql_query($consultaRegistros4,$conexion);
+	$totalFilas4=mysql_num_rows($resultadoRegistro4);	
+	
+	//CONSULTA DE REGISTROS FUERA DE PARAMETRO
+	$consultaUnion="select * from amoniaco where estado='1' and fecha=curdate()
+	union 
+	select * from humedad where estado='1' and fecha=curdate()
+	union
+	select * from temperatura where estado='1' and fecha=curdate();";
+	 mysql_query("SET NAMES utf8");
+    $result=mysql_query($consultaUnion,$conexion);
+	
+	
+	//SUMA DE REGISTROS CON VALOR FUERA DE RANGO NORMALES--
+	$sumaRegistros=$totalFilas+$totalFilas2+$totalFilas3+$totalFilas4;
+	
+	
 	if (isset($_REQUEST['filtro']))
 	{ 
 
@@ -52,13 +89,7 @@
 	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
 		
 	}
-
-    
-	
 ?>
-
-
-
 
 
 <!DOCTYPE html>
@@ -71,7 +102,7 @@
     <meta name="description" content="au theme template">
     <meta name="author" content="Hau Nguyen">
     <meta name="keywords" content="au theme template">
-
+	<meta http-equiv="Refresh" content=""; url="url_destino.php" />
     <!-- Title Page-->
     <title>Panel de Control</title>
 
@@ -180,113 +211,64 @@
                             </form>
                             <div class="header-button">
                                 <div class="noti-wrap">
+                                  
                                     <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-comment-more"></i>
-                                        <span class="quantity">1</span>
-                                        <div class="mess-dropdown js-dropdown">
-                                            <div class="mess__title">
-                                                <p>You have 2 news message</p>
-                                            </div>
-                                            <div class="mess__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
-                                                </div>
-                                                <div class="content">
-                                                    <h6>Michelle Moreno</h6>
-                                                    <p>Have sent a photo</p>
-                                                    <span class="time">3 min ago</span>
-                                                </div>
-                                            </div>
-                                            <div class="mess__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
-                                                </div>
-                                                <div class="content">
-                                                    <h6>Diane Myers</h6>
-                                                    <p>You are now connected on message</p>
-                                                    <span class="time">Yesterday</span>
-                                                </div>
-                                            </div>
-                                            <div class="mess__footer">
-                                                <a href="#">View all messages</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-email"></i>
-                                        <span class="quantity">1</span>
-                                        <div class="email-dropdown js-dropdown">
-                                            <div class="email__title">
-                                                <p>You have 3 New Emails</p>
-                                            </div>
-                                            <div class="email__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
-                                                </div>
-                                                <div class="content">
-                                                    <p>Meeting about new dashboard...</p>
-                                                    <span>Cynthia Harvey, 3 min ago</span>
-                                                </div>
-                                            </div>
-                                            <div class="email__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
-                                                </div>
-                                                <div class="content">
-                                                    <p>Meeting about new dashboard...</p>
-                                                    <span>Cynthia Harvey, Yesterday</span>
-                                                </div>
-                                            </div>
-                                            <div class="email__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
-                                                </div>
-                                                <div class="content">
-                                                    <p>Meeting about new dashboard...</p>
-                                                    <span>Cynthia Harvey, April 12,,2018</span>
-                                                </div>
-                                            </div>
-                                            <div class="email__footer">
-                                                <a href="#">See all emails</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="noti__item js-item-menu">
+									 <?php  if(($totalFilas+$totalFilas2+$totalFilas3+$totalFilas4)>0){?>
                                         <i class="zmdi zmdi-notifications"></i>
-                                        <span class="quantity">0</span>
+                                        <span class="quantity"><?php  echo $sumaRegistros; ?></span>
+									 <?php } ?>		
                                         <div class="notifi-dropdown js-dropdown">
                                             <div class="notifi__title">
-                                                <p>You have 3 Notifications</p>
+                                                <p>Hay <?php echo $sumaRegistros;?> alertas de variables</p>
                                             </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c1 img-cir img-40">
-                                                    <i class="zmdi zmdi-email-open"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>You got a email notification</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c2 img-cir img-40">
-                                                    <i class="zmdi zmdi-account-box"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>Your account has been blocked</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c3 img-cir img-40">
-                                                    <i class="zmdi zmdi-file-text"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>You got a new file</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
+											  <!-- CICLO PARA RECORRER REGISTROS QUE ESTAN FUERA DE PARAMETROS NORMALES-->
+											<?php
+												while ($filas = mysql_fetch_array($resultadoRegistro)) {
+												echo "<div class='notifi__item'>";
+												echo	"<div class='bg-c2 img-cir img-40'>";
+												echo		"<i class='zmdi zmdi-alert-octagon'></i>";
+												echo	"</div>";
+												echo	"<div class='content'>";
+                                                echo    "<p>Amoníaco $filas[3]ppm</p>";
+                                                echo    "<span class='date'>$filas[1], $filas[2]</span>";
+												echo	"</div>";
+												echo "</div>";													
+
+												}
+												
+												while ($filas = mysql_fetch_array($resultadoRegistro2)) {
+												echo "<div class='notifi__item'>";
+												echo	"<div class='bg-c2 img-cir img-40'>";
+												echo		"<i class='zmdi zmdi-alert-octagon'></i>";
+												echo	"</div>";
+												echo	"<div class='content'>";
+                                                echo    "<p>Temperatua $filas[3]ppm</p>";
+                                                echo    "<span class='date'>$filas[1], $filas[2]</span>";
+												echo	"</div>";
+												echo "</div>";													
+
+												}
+												
+												while ($filas = mysql_fetch_array($resultadoRegistro3)) {
+												echo "<div class='notifi__item'>";
+												echo	"<div class='bg-c2 img-cir img-40'>";
+												echo		"<i class='zmdi zmdi-alert-octagon'></i>";
+												echo	"</div>";
+												echo	"<div class='content'>";
+                                                echo    "<p>Humedad $filas[3]ppm</p>";
+                                                echo    "<span class='date'>$filas[1], $filas[2]</span>";
+												echo	"</div>";
+												echo "</div>";													
+
+												}
+																								
+											?>   	
+																				
+											
+											<!-- FIN  CICLO PARA RECORRER REGISTROS QUE ESTAN FUERA DE PARAMETROS NORMALES-->
+                                            
                                             <div class="notifi__footer">
-                                                <a href="#">All notifications</a>
+                                                <a href="eliminarNotificacion.php">Eliminar Notificaciones</a>
                                             </div>
                                         </div>
                                     </div>
@@ -297,7 +279,7 @@
                                             <img src="images/icon/avatar-01.jpg" alt="John Doe" />
                                         </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">john doe</a>
+                                            <a class="js-acc-btn" href="#">Misael</a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
@@ -308,23 +290,9 @@
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">john doe</a>
+                                                        <a href="#">Misael</a>
                                                     </h5>
-                                                    <span class="email">johndoe@example.com</span>
-                                                </div>
-                                            </div>
-                                            <div class="account-dropdown__body">
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                                    <span class="email"></span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
@@ -348,57 +316,36 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Registro de datos Amoníaco </br></h2>
+                                    <h2 class="title-1">Ambiente en tiempo real</h2>
                                     
                                 </div>
                             </div>
                         </div>
-                        
-						<!--INICIO DE TABLA-->
+                       
+                        <!--INICIO DE TABLA-->
+							<!--INICIO DE TABLA-->
 						<div class="row">
-		<h2><br /></h2>
-		
-		<div class="col-md-12">
-		    <form class="form-inline form-filtro">
-        <div class="form-group">
-          <label class="sr-only" for="filtro-data-inicial">Data inicial</label>
-          <input type="date" class="form-control" name="inicial" id="inicial">
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="filtro-data-final">Data final</label>
-          <input type="date" class="form-control" name="final" id="final">
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="filtro-tipo">Tipo</label>
-          <select class="form-control" id="filtro-tipo">
-            <option value="">Tipo</option>
-            <option value="">Receita</option>
-            <option value="">Despesa</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="filtro-conta">Conta</label>
-          <select class="form-control" id="filtro-conta">
-            <option value="">Conta</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="filtro-categoria">Categoria</label>
-          <select class="form-control" id="filtro-categoria">
-            <option value="">Categoria</option>
-          </select>
-        </div>
-        <div class="form-group">
-		  <button type="submit" name="filtro" value="filtrar" class="btn btn-primary">Filtrar</button>
-          <button type="reset" class="btn btn-default">Limpar</button>
-		 
-        </div>
-      </form>
-		</div>
-	</div>
-						
-						
-						
+							<h2><br /></h2>
+							
+							<div class="col-md-12">
+								<form class="form-inline form-filtro">
+							<div class="form-group">
+							  <label class="sr-only" for="filtro-data-inicial">Data inicial</label>
+							  <input type="date" class="form-control" name="inicial" id="inicial">
+							</div>
+							<div class="form-group">
+							  <label class="sr-only" for="filtro-data-final">Data final</label>
+							  <input type="date" class="form-control" name="final" id="final">
+							</div>							
+							
+							<div class="form-group">
+							  <button type="submit" name="filtro" value="filtrar" class="btn btn-primary">Filtrar</button>
+							  <button type="reset" class="btn btn-default">Limpar</button>
+							 
+							</div>
+						  </form>
+							</div>
+						</div>
 						
 						
 						
@@ -462,10 +409,8 @@
                                 <!-- END DATA TABLE-->
                             </div>
                         </div>
-						
-						
-						<!--FIN DE TABLA-->
-              
+                       
+					    <!--FIN DE TABLA-->
                         
                         <div class="row">
                             <div class="col-md-12">
