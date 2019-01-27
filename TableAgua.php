@@ -1,7 +1,8 @@
 <?php 
 	require('conexion.php');
 	
-	//consulta ultimo regitro de temperatura
+	
+		//consulta ultimo regitro de temperatura
 	$consulta="select * from temperatura order by id desc limit 1";
 	mysql_query("SET NAMES utf8");
 	$resultado=mysql_query($consulta,$conexion);
@@ -58,6 +59,36 @@
 	
 	//SUMA DE REGISTROS CON VALOR FUERA DE RANGO NORMALES--
 	$sumaRegistros=$totalFilas+$totalFilas2+$totalFilas3+$totalFilas4;
+	
+	
+	if (isset($_REQUEST['filtro']))
+	{ 
+
+	if ($_REQUEST['inicial']!==""){
+		$fechaInicial=$_REQUEST['inicial'];		
+	}
+	if($_REQUEST['inicial']!==""){
+		
+		$fechaFinal=$_REQUEST['final'];
+	}
+	
+	$consultaRango='select * from informeAmoniaco where fecha between "'.$fechaInicial.'" and "'.$fechaFinal.'" order by fecha desc;';
+	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
+	
+	echo '<script language="JavaScript"> 
+            alert("JavaScript dentro de PHP"); 
+                </script>';
+		
+          
+	}else {
+		echo '<script language="JavaScript"> 
+            alert("JavaScript dentro de PHPsddddd"); 
+                </script>';
+		
+	$consultaRango='select * from informeAmoniaco order by fecha desc;';
+	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
+		
+	}
 ?>
 
 
@@ -65,6 +96,9 @@
 <html lang="en">
 
 <head>
+
+	
+
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -95,7 +129,11 @@
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
+	
+	 <!--INMOVILIZAR COLUMNA DE TABLA DE DATOS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+	
 </head>
 
 <body class="animsition">
@@ -119,33 +157,17 @@
             <nav class="navbar-mobile">
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
-                           <li class="has-sub">
-                            <a class="js-arrow" href="index.php">
-                                <i class="fas fa-tachometer-alt"></i>Panel de Control</a>
-                           
-                        </li>
-						
-						 <li class="has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="#">
-                                <i class="fas fa-chart-bar"></i>Informe por variable</a>
+                                <i class="fas fa-tachometer-alt"></i>Panel de Control</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                 <li>
-                                    <a href="TableAmoniaco">Amoníaco</a>
+                                    <a href="index.html">Estadisticas</a>
                                 </li>
-                                <li>
-                                    <a href="TableHumedad">Humedad</a>
-                                </li>
-                                <li>
-                                    <a href="TableTemperatura">Temperatua</a>
-                                </li>                              
+                                
                             </ul>
                         </li>
-                         
-						 <li>
-                            <a href="TableDia.php">
-                                <i class="fas fa-calendar-alt"></i>Informe por día</a>
-                        </li>			
-                        
+                          
                         
                        
                     </ul>
@@ -164,34 +186,16 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                         <li class="active has-sub">
-                            <a class="js-arrow" href="index.php">
-                                <i class="fas fa-tachometer-alt"></i>Panel de Control</a>
-                            
-                     </li>
-						
-						<li class="active has-sub">
+                        <li class="active has-sub">
                             <a class="js-arrow" href="#">
-                                <i class="fas fa-chart-bar"></i>Informe por variable</a>
+                                <i class="fas fa-tachometer-alt"></i>Panel de Control</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="TableAmoniaco">Amoníaco</a>
+                                    <a href="index.html">Estadisticas</a>
                                 </li>
-                                <li>
-                                    <a href="TableHumedad">Humedad</a>
-                                </li>
-                                <li>
-                                    <a href="TableTemperatura">Temperatua</a>
-                                </li>
-                               
+                                
                             </ul>
                         </li>
-						
-						 <li class="active has-sub">
-                            <a class="js-arrow" href="TableDia.php">
-                                <i class="fas fa-calendar-alt"></i>Informe por día</a>                            
-                         </li>
-						 
                       
                     </ul>
                 </nav>
@@ -319,127 +323,121 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Ambiente en tiempo real</h2>
+                                    <h2 class="title-1">Historial de la variable Amoniáco</h2>
                                     
                                 </div>
                             </div>
                         </div>
-                        <div class="row m-t-25">
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c1">
-                                    <div class="overview__inner">
-                                        <div class="overview-box clearfix">
-                                            <div class="icon">
-                                                <i class="zmdi zmdi-sun"></i> 
-                                            </div>
-                                            <div class="text">
-                                                <h2><?php  echo $valor."°"; ?> </h2>
-                                                <span>Temperatura</span>
-                                            </div>
-                                        </div>
-                                        <div class="overview-chart">
-                                            <canvas id="widgetChart1"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c2">
-                                    <div class="overview__inner">
-                                        <div class="overview-box clearfix">
-                                            <div class="icon">
-                                                <i class="zmdi zmdi-flash"></i>
-                                            </div>
-                                            <div class="text">
-                                                <h2><?php  echo $valorHumedad."%"; ?></h2>
-                                                <span>Humedad</span>
-                                            </div>
-                                        </div>
-                                        <div class="overview-chart">
-                                            <canvas id="widgetChart2"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c3">
-                                    <div class="overview__inner">
-                                        <div class="overview-box clearfix">
-                                            <div class="icon">
-                                                <i class="zmdi zmdi-calendar-note"></i>
-                                            </div>
-                                            <div class="text">
-                                                <h2><?php  echo $valorAmoniaco."ppm"; ?></h2>
-                                                <span>Amoníaco</span>
-                                            </div>
-                                        </div>
-                                        <div class="overview-chart">
-                                            <canvas id="widgetChart3"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c4">
-                                    <div class="overview__inner">
-                                        <div class="overview-box clearfix">
-                                            <div class="icon">
-                                                <i class="zmdi zmdi-money"></i>
-                                            </div>
-                                            <div class="text">
-                                                <h2>500Lts</h2>
-                                                <span>Consumo de agua</span>
-                                            </div>
-                                        </div>
-                                        <div class="overview-chart">
-                                            <canvas id="widgetChart4"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--INICIO DE GRAFICAS-->
-						 <div class="row">
-                            <div class="col-lg-6">
-                                <div class="au-card m-b-30">
-                                    <div class="au-card-inner">
-                                        <h3 class="title-2 m-b-40">Temperatura</h3>
-                                        <canvas id="temperatura"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-							 <!--sepracion de graficas-->
-                            <div class="col-lg-6">
-                                <div class="au-card m-b-30">
-                                    <div class="au-card-inner">
-                                        <h3 class="title-2 m-b-40">Humedad</h3>
-                                        <canvas id="humedad"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-							 <!--sepracion de graficas-->
-							<div class="col-lg-6">
-                                <div class="au-card m-b-30">
-                                    <div class="au-card-inner">
-                                        <h3 class="title-2 m-b-40">Amoníacooo</h3>
-                                        <canvas id="amoniaco"></canvas>
-                                    </div>
-                                </div>
-                            </div> 
-							  <!--sepracion de graficas-->
-							  <div class="col-lg-6">
-                                <div class="au-card m-b-30">
-                                    <div class="au-card-inner">
-                                        <h3 class="title-2 m-b-40">Consumo de Agua</h3>
-                                        <canvas id="agua"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-							   <!--sepracion de graficas-->
+                       
+                        <!--INICIO DE TABLA-->
+							<!--INICIO DE TABLA-->
+						<div class="row">
+							<h2><br /></h2>
 							
+							<div class="col-md-12">
+								<form class="form-inline form-filtro">
+							<div class="form-group">
+							  <label class="sr-only" for="filtro-data-inicial">Data inicial</label>
+							  <input type="date" class="form-control" name="inicial" id="inicial">
+							</div>
+							<div class="form-group">
+							  <label class="sr-only" for="filtro-data-final">Data final</label>
+							  <input type="date" class="form-control" name="final" id="final">
+							</div>							
+							
+							<div class="form-group">
+							  <button type="submit" name="filtro" value="filtrar" class="btn btn-primary">Filtrar</button>
+							  <button type="reset" class="btn btn-default">Limpar</button>
+							 
+							</div>
+						  </form>
+							</div>
+						</div>
+						
+						
+						
+						  <div class="row m-t-30">
+                            <div class="col-md-12">
+                                <!-- DATA TABLE-->
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3">
+                                        <thead>
+											 <tr>
+                                                <th colspan="12"></th>
+                                                <th>HORA</th>
+												<th colspan="12"></th>
+                                            </tr>
+                                            <tr>
+                                                <th>fecha</th>
+                                                <th>00</th>
+                                                <th>01</th>
+                                                <th>02</th>
+                                                <th>03</th>
+												<th>04</th>
+                                                <th>05</th>
+                                                <th>06</th>
+                                                <th>07</th>
+												<th>08</th>
+                                                <th>09</th>
+                                                <th>10</th>
+                                                <th>11</th>
+												<th>12</th>
+                                                <th>13</th>
+                                                <th>14</th>
+												<th>15</th>
+                                                <th>16</th>
+                                                <th>17</th>
+												<th>18</th>
+                                                <th>19</th>
+                                                <th>20</th>
+												<th>21</th>
+                                                <th>22</th>
+                                                <th>23</th>		
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+											<?php
+												while ($filas = mysql_fetch_array($resultadoConsultaRango)) {
+													
+													echo "<tr>";  
+													echo "<td class='static' scope='row'>".$filas["fecha"]."</td>";
+													echo "<td>".$filas["00"]."</td>";  
+													echo "<td>".$filas["1"]."</td>";  
+													echo "<td>".$filas["2"]."</td>";
+													echo "<td>".$filas["3"]."</td>";  
+													echo "<td>".$filas["4"]."</td>";      
+													echo "<td>".$filas["5"]."</td>";  
+													echo "<td>".$filas["6"]."</td>";
+													echo "<td>".$filas["7"]."</td>";
+													echo "<td>".$filas["8"]."</td>";      
+													echo "<td>".$filas["9"]."</td>";  
+													echo "<td>".$filas["10"]."</td>";
+													echo "<td>".$filas["11"]."</td>";  
+													echo "<td>".$filas["12"]."</td>";      
+													echo "<td>".$filas["13"]."</td>";  
+													echo "<td>".$filas["14"]."</td>";
+													echo "<td>".$filas["15"]."</td>";  
+													echo "<td>".$filas["16"]."</td>";      
+													echo "<td>".$filas["17"]."</td>";  
+													echo "<td>".$filas["18"]."</td>";
+													echo "<td>".$filas["19"]."</td>";
+													echo "<td>".$filas["20"]."</td>";  
+													echo "<td>".$filas["21"]."</td>";  
+													echo "<td>".$filas["22"]."</td>";  
+													echo "<td>".$filas["23"]."</td>";  
+													echo "</tr>";  
+
+												}
+											?>   				
+																			   
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE-->
+                            </div>
                         </div>
                        
-					    <!--FIN DE GRAFICAS-->
+					    <!--FIN DE TABLA-->
                         
                         <div class="row">
                             <div class="col-md-12">
@@ -480,11 +478,10 @@
     </script>
 
     <!-- Main JS-->
-	
+	<script type="text/javascript" src="app.js"></script>
 	<script type="text/javascript" src="temperatura.js"></script>
 	<script type="text/javascript" src="humedad.js"></script>
 	<script type="text/javascript" src="agua.js"></script>
-	<script type="text/javascript" src="app.js"></script>
     <script src="js/main.js"></script>
 	
 	    <!-- CONFIGURACION DE BARRAS-->
