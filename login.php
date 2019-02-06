@@ -1,3 +1,24 @@
+<?php
+	error_reporting(0);
+	require('conexion.php');
+	require('crud.php');
+
+	if($_POST['btningresar']=='ingresar'){
+		$user = $_REQUEST['user'];
+		$password= $_REQUEST['pass'];
+		
+		if ($user=='' || $password=='') {
+			
+			faltanDatos("Debe ingresar todos los datos.");
+		}else{
+			validarUser($user, $password);
+		}
+		
+	}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +31,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Forget Password</title>
+    <title>Login</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -43,17 +64,24 @@
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="#">
-                                <img src="images/icon/logo.png" alt="CoolAdmin">
+                                <img src="images/icon/Congrats.png" alt="CoolAdmin">
                             </a>
                         </div>
                         <div class="login-form">
-                            <form action="" method="post">
+                            <form role="login" action="login.php" method="post">
                                 <div class="form-group">
-                                    <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    <label>Usuario</label>
+                                    <input class="au-input au-input--full" type="text" name="user" placeholder="Nombre de usuario">
                                 </div>
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">submit</button>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input class="au-input au-input--full" type="password" name="pass" placeholder="Password">
+                                </div>
+                                
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit" name="btningresar" value="ingresar" id="ingresar">Ingresar</button>
+                                
                             </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -90,3 +118,16 @@
 
 </html>
 <!-- end document-->
+
+
+
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	    setTimeout(function() {
+	        $('#alertRegistro').slideUp('slow','swing');
+	    },10000);
+	});
+
+</script>
