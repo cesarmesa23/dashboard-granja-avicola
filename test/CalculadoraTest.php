@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-require "Calculadora.php";
+require "../Calculadora.php";
 
 final class CalculadoraTest extends TestCase
 {
