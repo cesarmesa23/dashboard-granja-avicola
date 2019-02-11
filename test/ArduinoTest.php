@@ -6,14 +6,14 @@ final class ArduinoTest extends TestCase
 {
 	public function testVerificarParametros(){
 		$ard=new Arduino();
-		$this->assertEquals(true,$ard->verificarParametros(0,55,12)
+		$this->assertEquals(true,$ard->verificarParametros(24,55,12)
 		);
 	}
 	
 	
 	public function testValidarParametros(){
 		$ard=new Arduino();
-		$this->assertEquals(true,$ard->validarParametrosSms(32,55,12)
+		$this->assertEquals(true,$ard->validarParametrosSms(45,55,12)
 		);
 	}
 	
