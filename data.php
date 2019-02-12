@@ -7,7 +7,7 @@ require('conexion.php');
 
 
 //query to get data from the table
-$query ="select  TIME_FORMAT(hora,'%H') as hora, valor from amoniaco";
+$query ="select  TIME_FORMAT(hora,'%H') as hora, valor from amoniaco where fecha=curdate()";
 
 //execute query
 mysql_query("SET NAMES utf8");

@@ -1,4 +1,7 @@
 <?php 
+
+	require('crud.php');
+    require('seguridad.php');
 	require('conexion.php');
 	
 	
@@ -88,17 +91,17 @@
 	$resultadoFechaHumedad=mysql_query($consultaFechaHumedad,$conexion);
 	$resultadoFechaTemperatura=mysql_query($consultaFechaTemperatura,$conexion);
 	
-	
+	/*
 	echo '<script language="JavaScript"> 
             alert("JavaScript dentro de PHP"); 
-                </script>';
+                </script>';*/
 		
           
 	}else {
-		echo '<script language="JavaScript"> 
+	/*	echo '<script language="JavaScript"> 
             alert("NO HA USADO FILTRO"); 
                 </script>';
-			
+	*/	
 	
 	$consultaFechaAmoniaco='select * from informeAmoniaco where fecha=curdate();';
 	
@@ -115,6 +118,11 @@
 	$resultadoFechaTemperatura=mysql_query($consultaFechaTemperatura,$conexion);
 		
 	}
+	
+	
+	if ($_POST['btncerrar']=='cerrar') {
+        cerrarSesionAdmin();
+    } 
 ?>
 
 
@@ -183,7 +191,7 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
-                            <a class="js-arrow" href="index.php">
+                            <a class="js-arrow" href="panel-user.php">
                                 <i class="fas fa-tachometer-alt"></i>Panel de Control</a>
                            
                         </li>
@@ -227,7 +235,7 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
 					 <li class="active has-sub">
-                            <a class="js-arrow" href="index.php">
+                            <a class="js-arrow" href="panel-user.php">
                                 <i class="fas fa-tachometer-alt"></i>Panel de Control</a>
                             
                      </li>
@@ -361,7 +369,7 @@
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
+                                                <a href="#" onclick="cerrarSesion()">
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>
@@ -646,3 +654,32 @@ var myChart = new Chart(ctx, {
 
 </html>
 <!-- end document-->
+
+<!--modal cerrar sesion-->
+            <form method="post" action="index.php">
+                <div id="closeSession" class="modal fade" tabindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">                        
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h1 class="modal-title">Salir</h1>
+                      </div>
+                      <div class="modal-body">
+                        <h3>¿Está seguro que desea salir?</h3>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-large btn-primary" name="btncerrar" value="cerrar" id="cerrar">Cerrar Sesión</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+            </form>
+
+  <script type="text/javascript">
+    function cerrarSesion() {
+      $("#closeSession").modal("show");
+    }
+  </script>

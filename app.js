@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$.ajax({
-		url: "http://localhost/granja/data.php",
+		url: "http://tepremiapp.com/granja/data.php",
 		method: "GET",
 		success: function(data) {
 			console.log(data);

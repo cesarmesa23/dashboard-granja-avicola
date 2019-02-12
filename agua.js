@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$.ajax({
-		url: "http://localhost/granja/dataHumedad.php",
+		url: "http://tepremiapp.com/granja/dataHumedad.php",
 		method: "GET",
 		success: function(data) {
 			console.log(data);

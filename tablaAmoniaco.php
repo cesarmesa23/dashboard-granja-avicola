@@ -1,4 +1,6 @@
 <?php 
+	require('crud.php');
+    require('seguridad.php');
 	require('conexion.php');
 	
 	//consulta ultimo regitro de temperatura
