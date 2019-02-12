@@ -29,7 +29,7 @@
 	        	$_SESSION['ingresouser']='YES';             
 	        	$_SESSION['userapp']=$datos['usuario'];
 				$_SESSION['nomuser']=$datos['nombre']." ".$datos['apellido'];
-				header("Location: index.php");
+				header("Location: panel-user.php");
         	}else{
         		alertaLoginDesac("El usuario se encuentra desactivado.");
         	}

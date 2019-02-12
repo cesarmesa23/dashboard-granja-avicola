@@ -165,7 +165,7 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
-                            <a class="js-arrow" href="index.php">
+                            <a class="js-arrow" href="panel-user.php">
                                 <i class="fas fa-tachometer-alt"></i>Panel de Control</a>
                            
                         </li>
@@ -209,7 +209,7 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                          <li class="active has-sub">
-                            <a class="js-arrow" href="index.php">
+                            <a class="js-arrow" href="panel-user.php">
                                 <i class="fas fa-tachometer-alt"></i>Panel de Control</a>
                             
                      </li>
