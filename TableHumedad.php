@@ -78,11 +78,11 @@
 	
 	/*echo '<script language="JavaScript"> 
             alert("JavaScript dentro de PHP"); 
-                </script>';
+                </script>';*/
 		
           
 	}else {
-		echo '<script language="JavaScript"> 
+		/*echo '<script language="JavaScript"> 
             alert("JavaScript dentro de PHPsddddd"); 
                 </script>';
 		*/

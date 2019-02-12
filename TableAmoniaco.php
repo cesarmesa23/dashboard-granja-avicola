@@ -62,9 +62,7 @@
 	//SUMA DE REGISTROS CON VALOR FUERA DE RANGO NORMALES--
 	$sumaRegistros=$totalFilas+$totalFilas2+$totalFilas3+$totalFilas4;
 	
-	if ($_POST['btncerrar']=='cerrar') {
-        cerrarSesionAdmin();
-    } 
+	
 	
 	
 	if (isset($_REQUEST['filtro']))
@@ -83,11 +81,11 @@
 	
 	/*echo '<script language="JavaScript"> 
             alert("JavaScript dentro de PHP"); 
-                </script>';
+                </script>';*/
 		
           
 	}else {
-		echo '<script language="JavaScript"> 
+		/*echo '<script language="JavaScript"> 
             alert("JavaScript dentro de PHPsddddd"); 
                 </script>';*/
 		
