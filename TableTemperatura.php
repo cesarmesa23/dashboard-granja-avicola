@@ -1,4 +1,8 @@
 <?php 
+
+
+	require('crud.php');
+    require('seguridad.php');
 	require('conexion.php');
 	
 	
@@ -89,6 +93,10 @@
 	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
 		
 	}
+	
+	if ($_POST['btncerrar']=='cerrar') {
+        cerrarSesionAdmin();
+    } 
 ?>
 
 
@@ -334,7 +342,7 @@
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
+                                                <a href="#" onclick="cerrarSesion()>
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>
@@ -561,3 +569,33 @@ var myChart = new Chart(ctx, {
 
 </html>
 <!-- end document-->
+
+
+<!--modal cerrar sesion-->
+            <form method="post" action="index.php">
+                <div id="closeSession" class="modal fade" tabindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">                        
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h1 class="modal-title">Salir</h1>
+                      </div>
+                      <div class="modal-body">
+                        <h3>¿Está seguro que desea salir?</h3>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-large btn-primary" name="btncerrar" value="cerrar" id="cerrar">Cerrar Sesión</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+            </form>
+
+  <script type="text/javascript">
+    function cerrarSesion() {
+      $("#closeSession").modal("show");
+    }
+  </script>
