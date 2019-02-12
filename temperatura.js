@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$.ajax({
-		url: "http://localhost/granja/dataTemperatura.php",
+		url: "http://tepremiapp.com/granja/dataTemperatura.php",
 		method: "GET",
 		success: function(data) {
 			console.log(data);

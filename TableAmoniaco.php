@@ -4,8 +4,7 @@
     require('seguridad.php');
 	require('conexion.php');
 	
-	
-		//consulta ultimo regitro de temperatura
+	//consulta ultimo regitro de temperatura
 	$consulta="select * from temperatura order by id desc limit 1";
 	mysql_query("SET NAMES utf8");
 	$resultado=mysql_query($consulta,$conexion);
@@ -63,6 +62,10 @@
 	//SUMA DE REGISTROS CON VALOR FUERA DE RANGO NORMALES--
 	$sumaRegistros=$totalFilas+$totalFilas2+$totalFilas3+$totalFilas4;
 	
+	if ($_POST['btncerrar']=='cerrar') {
+        cerrarSesionAdmin();
+    } 
+	
 	
 	if (isset($_REQUEST['filtro']))
 	{ 
@@ -78,7 +81,7 @@
 	$consultaRango='select * from informeAmoniaco where fecha between "'.$fechaInicial.'" and "'.$fechaFinal.'" order by fecha desc;';
 	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
 	
-	echo '<script language="JavaScript"> 
+	/*echo '<script language="JavaScript"> 
             alert("JavaScript dentro de PHP"); 
                 </script>';
 		
@@ -86,7 +89,7 @@
 	}else {
 		echo '<script language="JavaScript"> 
             alert("JavaScript dentro de PHPsddddd"); 
-                </script>';
+                </script>';*/
 		
 	$consultaRango='select * from informeAmoniaco order by fecha desc;';
 	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
@@ -103,9 +106,6 @@
 <html lang="en">
 
 <head>
-
-	
-
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -136,11 +136,7 @@
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
-	
-	 <!--INMOVILIZAR COLUMNA DE TABLA DE DATOS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-	
 </head>
 
 <body class="animsition">
@@ -150,8 +146,8 @@
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="log" href="index.html">
-                            <img src="images/icon/Congrats.png" alt="CoolAdmin" />
+                        <a class="log" href="panel-user.php">
+                            <img src="images/icon/Congrats." alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -165,7 +161,7 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                            <li class="has-sub">
-                            <a class="js-arrow" href="index.php">
+                            <a class="js-arrow" href="panel-user.php">
                                 <i class="fas fa-tachometer-alt"></i>Panel de Control</a>
                            
                         </li>
@@ -190,7 +186,9 @@
                             <a href="TableDia.php">
                                 <i class="fas fa-calendar-alt"></i>Informe por día</a>
                         </li>			
-                                                
+                        
+                        
+                       
                     </ul>
                 </div>
             </nav>
@@ -208,7 +206,7 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                          <li class="active has-sub">
-                            <a class="js-arrow" href="index.php">
+                            <a class="js-arrow" href="panel-user.php">
                                 <i class="fas fa-tachometer-alt"></i>Panel de Control</a>
                             
                      </li>
@@ -356,7 +354,7 @@
             <!-- HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
-            <div class="main-content">
+                       <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
@@ -517,10 +515,11 @@
     </script>
 
     <!-- Main JS-->
-	<script type="text/javascript" src="app.js"></script>
+	
 	<script type="text/javascript" src="temperatura.js"></script>
 	<script type="text/javascript" src="humedad.js"></script>
 	<script type="text/javascript" src="agua.js"></script>
+	<script type="text/javascript" src="app.js"></script>
     <script src="js/main.js"></script>
 	
 	    <!-- CONFIGURACION DE BARRAS-->
@@ -568,6 +567,7 @@ var myChart = new Chart(ctx, {
 </body>
 
 </html>
+
 <!-- end document-->
 
 <!--modal cerrar sesion-->

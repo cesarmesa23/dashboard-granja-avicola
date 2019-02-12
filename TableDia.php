@@ -91,7 +91,7 @@
 	$resultadoFechaHumedad=mysql_query($consultaFechaHumedad,$conexion);
 	$resultadoFechaTemperatura=mysql_query($consultaFechaTemperatura,$conexion);
 	
-	
+	/*
 	echo '<script language="JavaScript"> 
             alert("JavaScript dentro de PHP"); 
                 </script>';
@@ -101,7 +101,7 @@
 		echo '<script language="JavaScript"> 
             alert("NO HA USADO FILTRO"); 
                 </script>';
-			
+	*/	
 	
 	$consultaFechaAmoniaco='select * from informeAmoniaco where fecha=curdate();';
 	

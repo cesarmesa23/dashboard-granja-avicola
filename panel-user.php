@@ -112,7 +112,7 @@
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="log" href="index.html">
+                        <a class="log" href="panel-user.php">
                             <img src="images/icon/Congrats." alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
@@ -428,7 +428,7 @@
 							<div class="col-lg-6">
                                 <div class="au-card m-b-30">
                                     <div class="au-card-inner">
-                                        <h3 class="title-2 m-b-40">Amoníacooo</h3>
+                                        <h3 class="title-2 m-b-40">Amoníaco</h3>
                                         <canvas id="amoniaco"></canvas>
                                     </div>
                                 </div>

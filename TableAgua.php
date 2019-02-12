@@ -1,27 +1,27 @@
 <?php 
 	require('conexion.php');
 	
-	
+	define ("nombreCampo","valor");
 		//consulta ultimo regitro de temperatura
 	$consulta="select * from temperatura order by id desc limit 1";
 	mysql_query("SET NAMES utf8");
 	$resultado=mysql_query($consulta,$conexion);
 	$datos=mysql_fetch_array($resultado);
-	$valor=$datos['valor'];
+	$valor=$datos['nombreCampo'];
 	
 	//consulta ultimo regitro de humedad
 	$consultaHumedad="select * from humedad order by id desc limit 1";
 	mysql_query("SET NAMES utf8");
 	$resultadoHumedad=mysql_query($consultaHumedad,$conexion);
 	$datosHumedad=mysql_fetch_array($resultadoHumedad);
-	$valorHumedad=$datosHumedad['valor'];
+	$valorHumedad=$datosHumedad['nombreCampo'];
 	
 	//consulta ultimo regitro de amoniaco
 	$consultaAmoniaco="select * from amoniaco order by id desc limit 1";
 	mysql_query("SET NAMES utf8");
 	$resultadoAmoniaco=mysql_query($consultaAmoniaco,$conexion);
 	$datosAmoniaco=mysql_fetch_array($resultadoAmoniaco);
-	$valorAmoniaco=$datosAmoniaco['valor'];
+	$valorAmoniaco=$datosAmoniaco['nombreCampo'];
 	
 	//Consulta de amoniaco fuera de parametro (estado=1)
 	$consultaRegistros="select * from amoniaco where estado='1' and fecha=curdate();";
