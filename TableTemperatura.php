@@ -76,7 +76,7 @@
 		$fechaFinal=$_REQUEST['final'];
 	}
 	
-	$consultaRango='select * from informeTemperatura where fecha between "'.$fechaInicial.'" and "'.$fechaFinal.'" order by fecha desc;';
+	$consultaRango='select * from informetemperatura where fecha between "'.$fechaInicial.'" and "'.$fechaFinal.'" order by fecha desc;';
 	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
 	
 	/*echo '<script language="JavaScript"> 
@@ -89,7 +89,7 @@
             alert("JavaScript dentro de PHPsddddd"); 
                 </script>';
 		*/
-	$consultaRango='select * from informeTemperatura order by fecha desc;';
+	$consultaRango='select * from informetemperatura order by fecha desc;';
 	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
 		
 	}

@@ -76,7 +76,7 @@
 		$fechaFinal=$_REQUEST['final'];
 	}
 	
-	$consultaRango='select * from informeAmoniaco where fecha between "'.$fechaInicial.'" and "'.$fechaFinal.'" order by fecha desc;';
+	$consultaRango='select * from informeamoniaco where fecha between "'.$fechaInicial.'" and "'.$fechaFinal.'" order by fecha desc;';
 	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
 	
 	/*echo '<script language="JavaScript"> 
@@ -89,7 +89,7 @@
             alert("JavaScript dentro de PHPsddddd"); 
                 </script>';*/
 		
-	$consultaRango='select * from informeAmoniaco order by fecha desc;';
+	$consultaRango='select * from informeamoniaco order by fecha desc;';
 	$resultadoConsultaRango=mysql_query($consultaRango,$conexion);
 		
 	}

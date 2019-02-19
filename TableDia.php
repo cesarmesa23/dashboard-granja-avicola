@@ -77,13 +77,13 @@
 	}
 	
      //Conuslta todos los valores de amoniaco por dia
-	$consultaFechaAmoniaco='select * from informeAmoniaco where fecha="'.$fechaInicial.'";';
+	$consultaFechaAmoniaco='select * from informeamoniaco where fecha="'.$fechaInicial.'";';
 	
 	 //Conuslta todos los valores de humedad por dia
-	$consultaFechaHumedad='select * from informeHumedad where fecha="'.$fechaInicial.'";';
+	$consultaFechaHumedad='select * from informehumedad where fecha="'.$fechaInicial.'";';
 	
 	 //Conuslta todos los valores de temperatura por dia
-	$consultaFechaTemperatura='select * from informeTemperatura where fecha="'.$fechaInicial.'";';
+	$consultaFechaTemperatura='select * from informetemperatura where fecha="'.$fechaInicial.'";';
 	
 	
 	
@@ -103,13 +103,13 @@
                 </script>';
 	*/	
 	
-	$consultaFechaAmoniaco='select * from informeAmoniaco where fecha=curdate();';
+	$consultaFechaAmoniaco='select * from informeamoniaco where fecha=curdate();';
 	
 	 //Conuslta todos los valores de humedad por dia
-	$consultaFechaHumedad='select * from informeHumedad where fecha=curdate()';
+	$consultaFechaHumedad='select * from informehumedad where fecha=curdate()';
 	
 	 //Conuslta todos los valores de temperatura por dia
-	$consultaFechaTemperatura='select * from informeTemperatura where fecha=curdate();';
+	$consultaFechaTemperatura='select * from informetemperatura where fecha=curdate();';
 	
 	
 	
